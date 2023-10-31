@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-require "simplecov"
+require 'simplecov'
 SimpleCov.start
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -31,6 +33,20 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
+def test_data
+  @tea1 = Tea.create(title: 'Black Tea', description: 'Strong and bold', temperature: 90, brew_time: 5)
+  @tea2 = Tea.create(title: 'Green Tea', description: 'Light and refreshing', temperature: 80, brew_time: 3)
+
+  @customer1 = Customer.create(first_name: 'John', last_name: 'Doe', email: 'john@example.com', address: '123 Main St')
+  @customer2 = Customer.create(first_name: 'Jane', last_name: 'Smith', email: 'jane@example.com', address: '456 Elm St')
+
+  @sub1 = Subscription.create(title: 'Monthly Black Tea', price: 10.99, status: 'active', frequency: 30,
+                              customer: @customer1, tea: @tea1)
+  @sub2 = Subscription.create(title: 'Bi-weekly Green Tea', price: 8.99, status: 'cancelled', frequency: 14,
+                              customer: @customer2, tea: @tea2)
+end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
