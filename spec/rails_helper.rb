@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-require "simplecov"
+require 'simplecov'
 SimpleCov.start
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -39,8 +41,10 @@ def test_data
   @customer1 = Customer.create(first_name: 'John', last_name: 'Doe', email: 'john@example.com', address: '123 Main St')
   @customer2 = Customer.create(first_name: 'Jane', last_name: 'Smith', email: 'jane@example.com', address: '456 Elm St')
 
-  @sub1 = Subscription.create(title: 'Monthly Black Tea', price: 10.99, status: 'active', frequency: 30, customer: @customer1, tea: @tea1)
-  @sub2 = Subscription.create(title: 'Bi-weekly Green Tea', price: 8.99, status: 'cancelled', frequency: 14, customer: @customer2, tea: @tea2)
+  @sub1 = Subscription.create(title: 'Monthly Black Tea', price: 10.99, status: 'active', frequency: 30,
+                              customer: @customer1, tea: @tea1)
+  @sub2 = Subscription.create(title: 'Bi-weekly Green Tea', price: 8.99, status: 'cancelled', frequency: 14,
+                              customer: @customer2, tea: @tea2)
 end
 
 RSpec.configure do |config|
@@ -74,7 +78,6 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-
 end
 
 Shoulda::Matchers.configure do |config|
