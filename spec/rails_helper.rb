@@ -31,6 +31,18 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
+def test_data
+  @tea1 = Tea.create(title: 'Black Tea', description: 'Strong and bold', temperature: 90, brew_time: 5)
+  @tea2 = Tea.create(title: 'Green Tea', description: 'Light and refreshing', temperature: 80, brew_time: 3)
+
+  @customer1 = Customer.create(first_name: 'John', last_name: 'Doe', email: 'john@example.com', address: '123 Main St')
+  @customer2 = Customer.create(first_name: 'Jane', last_name: 'Smith', email: 'jane@example.com', address: '456 Elm St')
+
+  @sub1 = Subscription.create(title: 'Monthly Black Tea', price: 10.99, status: 'active', frequency: 30, customer: customer1, tea: tea1)
+  @sub2 = Subscription.create(title: 'Bi-weekly Green Tea', price: 8.99, status: 'cancelled', frequency: 14, customer: customer2, tea: tea2)
+end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -62,6 +74,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
 end
 
 Shoulda::Matchers.configure do |config|
