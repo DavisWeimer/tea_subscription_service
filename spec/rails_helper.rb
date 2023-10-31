@@ -39,8 +39,8 @@ def test_data
   @customer1 = Customer.create(first_name: 'John', last_name: 'Doe', email: 'john@example.com', address: '123 Main St')
   @customer2 = Customer.create(first_name: 'Jane', last_name: 'Smith', email: 'jane@example.com', address: '456 Elm St')
 
-  @sub1 = Subscription.create(title: 'Monthly Black Tea', price: 10.99, status: 'active', frequency: 30, customer: customer1, tea: tea1)
-  @sub2 = Subscription.create(title: 'Bi-weekly Green Tea', price: 8.99, status: 'cancelled', frequency: 14, customer: customer2, tea: tea2)
+  @sub1 = Subscription.create(title: 'Monthly Black Tea', price: 10.99, status: 'active', frequency: 30, customer: @customer1, tea: @tea1)
+  @sub2 = Subscription.create(title: 'Bi-weekly Green Tea', price: 8.99, status: 'cancelled', frequency: 14, customer: @customer2, tea: @tea2)
 end
 
 RSpec.configure do |config|
