@@ -13,6 +13,16 @@ module Api
         end
       end
 
+      def destroy
+        begin
+          subscription = Subscription.find(params[:subscription_id])
+          subscription.update(status: 'cancelled')
+          render json: { message: "Subscription successfully cancelled" }, status: :ok
+        rescue StandardError => e
+          render json: { errors: [{ detail: e.message }] }, status: :not_found
+        end
+      end
+
       private
 
       def subscription_params
