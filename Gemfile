@@ -40,7 +40,7 @@ gem 'bootsnap', require: false
 
 gem 'jsonapi-serializer'
 
-gem 'rubocop', '~> 1.56', require: false
+# gem 'rubocop', '~> 1.56', require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
