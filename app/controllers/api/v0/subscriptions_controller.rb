@@ -16,7 +16,7 @@ module Api
       end
 
       def destroy
-        subscription = Subscription.find(params[:subscription_id])
+        subscription = Subscription.find(params[:id])
         subscription.update(status: 'cancelled')
         render json: { message: "Subscription successfully cancelled" }, status: :ok
       end
