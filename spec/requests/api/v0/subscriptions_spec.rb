@@ -77,13 +77,7 @@ RSpec.describe 'Subscriptions', type: :request do
 
   describe 'DESTROY — Happy Path' do
     it "can Cancel a Customers Subscription" do
-      
-      delete_params = {
-        subscription_id: @sub.id
-      }
-
-      delete api_v0_subscription_path(@sub.id), params: delete_params.to_json,
-                                        headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }
+      delete api_v0_subscription_path(@sub.id), headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }
       expect(response).to have_http_status(:ok)
 
       @sub.reload
@@ -96,13 +90,7 @@ RSpec.describe 'Subscriptions', type: :request do
 
   describe 'DESTROY — Sad Path' do
     it "can't find Customer with incorrect ID" do
-      
-      incorrect_params = {
-        subscription_id: 12492
-      }
-      
-      delete api_v0_subscription_path(@sub.id), params: incorrect_params.to_json,
-                                        headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }
+      delete api_v0_subscription_path(12492), headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }
       expect(response).to have_http_status(:not_found)
 
       @sub.reload
