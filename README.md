@@ -71,7 +71,8 @@ Response: `status: 201`
             "status": "active",
             "frequency": 30,
             "customer_id": 1,
-            "tea_id": 2
+            "tea_id": 2,
+            "created_at": "Friday, November 03, 2023 16:31:47 UTC"
         }
     }
 }
@@ -118,7 +119,8 @@ Response: `status: 200`
                 "status": "cancelled",
                 "frequency": 30,
                 "customer_id": 1,
-                "tea_id": 2
+                "tea_id": 2,
+                "created_at": "Friday, November 03, 2023 16:31:47 UTC"
             }
         },
         {
@@ -131,7 +133,8 @@ Response: `status: 200`
                 "status": "cancelled",
                 "frequency": 30,
                 "customer_id": 1,
-                "tea_id": 2
+                "tea_id": 2,
+                "created_at": "Friday, November 03, 2023 16:31:47 UTC"
             }
         }
     ]
