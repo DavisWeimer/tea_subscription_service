@@ -40,7 +40,7 @@ RSpec.describe 'Subscriptions', type: :request do
       expect(subscription.keys).to contain_exactly(:data)
       expect(subscription[:data].keys).to contain_exactly(:type, :id, :attributes)
       expect(subscription[:data][:attributes].keys).to contain_exactly(:id, :title, :price, :status, :frequency,
-                                                                       :customer_id, :tea_id)
+                                                                       :customer_id, :tea_id, :created_at)
 
       expect(subscription[:data][:attributes][:id]).to be_a Integer
       expect(subscription[:data][:attributes][:title]).to be_an String
@@ -49,6 +49,7 @@ RSpec.describe 'Subscriptions', type: :request do
       expect(subscription[:data][:attributes][:frequency]).to be_a Integer
       expect(subscription[:data][:attributes][:customer_id]).to be_a Integer
       expect(subscription[:data][:attributes][:tea_id]).to be_a Integer
+      expect(subscription[:data][:attributes][:created_at]).to be_a String
     end
   end
 
@@ -68,10 +69,13 @@ RSpec.describe 'Subscriptions', type: :request do
       expect(response).to have_http_status(:unprocessable_entity)
 
       errors = JSON.parse(response.body, symbolize_names: true)
-
-      expect(errors[:title]).to eq(["can't be blank"])
-      expect(errors[:price]).to eq(["can't be blank"])
-      expect(errors[:frequency]).to eq(["can't be blank"])
+      errors[:errors].each do |error|
+        expect(error[:status]).to eq("422")
+        expect(error[:source][:pointer]).to eq("/data/attributes/#{error[:source][:pointer].split('/').last}")
+        expect(error[:title]).to eq("Unprocessable Entity")
+        expect(error[:detail]).to eq("#{error[:source][:pointer].split('/').last.capitalize} can't be blank")
+        expect(error[:code]).to eq("blank")
+      end
     end
   end
 
@@ -118,7 +122,7 @@ RSpec.describe 'Subscriptions', type: :request do
       
       subscriptions[:data].each do |subscription|
         expect(subscription.keys).to contain_exactly(:type, :id, :attributes)
-        expect(subscription[:attributes].keys).to contain_exactly(:id, :title, :price, :status, :frequency, :customer_id, :tea_id)
+        expect(subscription[:attributes].keys).to contain_exactly(:id, :title, :price, :status, :frequency, :customer_id, :tea_id, :created_at)
         expect(subscription[:attributes][:id]).to be_a Integer
         expect(subscription[:attributes][:title]).to be_an String
         expect(subscription[:attributes][:price]).to be_a Float
@@ -126,6 +130,7 @@ RSpec.describe 'Subscriptions', type: :request do
         expect(subscription[:attributes][:frequency]).to be_a Integer
         expect(subscription[:attributes][:customer_id]).to be_a Integer
         expect(subscription[:attributes][:tea_id]).to be_a Integer
+        expect(subscription[:attributes][:created_at]).to be_a String
       end
     end
   end

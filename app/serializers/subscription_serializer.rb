@@ -2,6 +2,8 @@
 
 class SubscriptionSerializer
   include JSONAPI::Serializer
-  attributes :id, :title, :price, :status, :frequency, :customer_id, :tea_id
-  cache_options store: Rails.cache, namespace: 'jsonapi-serializer', expires_in: 1.hour
+  attributes :id, :title, :price, :status, :frequency, :customer_id, :tea_id 
+  attributes :created_at do |date_time|
+    date_time.created_at.strftime('%A, %B %d, %Y %H:%M:%S %Z')
+  end
 end

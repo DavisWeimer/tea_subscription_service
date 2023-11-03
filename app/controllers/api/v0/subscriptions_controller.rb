@@ -11,7 +11,7 @@ module Api
         if subscription.save
           render json: SubscriptionSerializer.new(subscription), status: :created
         else
-          render json: subscription.errors, status: :unprocessable_entity
+          render jsonapi_errors: subscription.errors, status: :unprocessable_entity
         end
       end
 
