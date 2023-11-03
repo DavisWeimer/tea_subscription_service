@@ -39,7 +39,7 @@ gem 'bootsnap', require: false
 # gem "rack-cors"
 
 gem 'jsonapi-serializer'
-
+gem 'jsonapi.rb'
 # gem 'rubocop', '~> 1.56', require: false
 
 group :development, :test do
